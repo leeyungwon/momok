@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import {
   useRouter,
 } from 'next/router'
@@ -7,19 +8,31 @@ import {
 import _ from 'lodash'
 
 import {
+  axios,
+} from '~/utils'
+
+import {
   PageWrap,
   SubmitBtn,
 } from '~/styles/restaurant/add'
 
 import Header from './Header'
 import Form from './Form'
-import {
-  axios,
-} from '~/utils'
+import AddressPopup from './AddressPopup'
+
+const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY
 
 const AddRestaurantComponent = () => {
   const router = useRouter()
 
+  const [
+    Kakao,
+    setKakao,
+  ] = useState(null)
+  const [
+    isShowAddressPopup,
+    setIsShowAddressPopup,
+  ] = useState(false)
   const [
     datas,
     setDatas,
@@ -27,12 +40,14 @@ const AddRestaurantComponent = () => {
     {
       order: 1,
       title: '식당이름',
+      type: 'input',
       name: 'name',
       value: '',
     },
     {
       order: 2,
       title: '종류',
+      type: 'select',
       name: 'type',
       options: [
         '양식', '한식', '일식',
@@ -43,18 +58,21 @@ const AddRestaurantComponent = () => {
     {
       order: 3,
       title: '대표메뉴',
+      type: 'input',
       name: 'popular_menu',
       value: '',
     },
     {
       order: 4,
       title: '주소',
+      type: 'address',
       name: 'address',
-      value: '',
+      value: {},
     },
     {
       order: 5,
       title: '맵기',
+      type: 'select',
       name: 'spicy',
       options: [
         '안매워요',
@@ -64,6 +82,14 @@ const AddRestaurantComponent = () => {
       value: '',
     },
   ])
+
+  const handleSetPlace = place => {
+    handleChangeData('address', place)
+  }
+
+  const handlePopup = status => {
+    setIsShowAddressPopup(status)
+  }
 
   const handleChangeData = (name, value) => {
     setDatas(oldDatas => {
@@ -79,13 +105,14 @@ const AddRestaurantComponent = () => {
   }
 
   const handleSubmitData = async () => {
-    let notInputted = _.find(datas, d => !d.value.trim())
+    let notInputted = _.find(datas, d => !d.value)
     if (notInputted) {
       alert(`${notInputted.title}를 입력해주세요`)
       return
     }
 
     let data = {}
+    let address = {}
     _.forEach(datas, d => {
       if (d.name === 'spicy') {
         let spicyIndex = _.findIndex(d.options, option => option === d.value)
@@ -94,8 +121,18 @@ const AddRestaurantComponent = () => {
         return
       }
 
+      if (d.name === 'address') {
+        address = d.value
+        return
+      }
+
       data[d.name] = d.value
     })
+
+    data.address = address.road_address_name
+    data.lat = address.x
+    data.lng = address.y
+    data.palce_id = address.id
 
     let response
     try {
@@ -117,19 +154,38 @@ const AddRestaurantComponent = () => {
 
   return (
     <PageWrap>
+      <Script
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${APP_KEY}&autoload=false&libraries=services,clusterer,drawing`}
+        onLoad={async () => {
+          await window.kakao.maps.load()
+          setKakao(window.kakao)
+        }}
+      />
+
       <Header />
       {_.map(datas, data => (
         <Form
           key={data.name}
           title={data.title}
+          type={data.type}
           name={data.name}
           options={data.options}
+          dataValue={data.value}
           onHandleChangeData={handleChangeData}
+          handlePopup={handlePopup}
         />
       ))}
-      <SubmitBtn onClick={handleSubmitData}>
+      <SubmitBtn
+        onClick={handleSubmitData}
+      >
         등록하고 달걀 받기
       </SubmitBtn>
+
+      {isShowAddressPopup && <AddressPopup
+        Kakao={Kakao}
+        handlePopup={handlePopup}
+        setPlace={handleSetPlace}
+      />}
     </PageWrap>
   )
 }

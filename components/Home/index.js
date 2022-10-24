@@ -13,6 +13,9 @@ import {
 import {
   useRouter,
 } from 'next/router'
+import {
+  axios,
+} from '~/utils'
 
 const HomeComponent = ({
   eggs,
@@ -79,6 +82,19 @@ const HomeComponent = ({
     })
 
     await new Promise(r => setTimeout(r, 1500))
+
+    let recentRecommend = JSON.parse(localStorage.getItem('recent-recommend'))
+
+    const response = await axios({
+      method: 'GET',
+      url: '/api/restaurant/restaurant',
+      params: {
+        restaurantIdx: recentRecommend?.idx || 0,
+      },
+    })
+    const recommended = response.data.result
+
+    localStorage.setItem('recent-recommend', JSON.stringify(recommended))
 
     router.push('/restaurant/recommended')
   }

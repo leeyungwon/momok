@@ -40,9 +40,27 @@ const Select = styled.select`
   }
 `
 
+const Button = styled.button`
+  width: 100%;
+  height: 65px;
+  padding: 0 20px;
+  border: 1px solid #EEEEEE;
+  border-radius: 10px;
+  transition: border-color .2s;
+  background-color: #FFF;
+  text-align: center;
+  font-size: 17px;
+  appearance: none;
+
+  &:focus {
+    border-color: #FE724C;
+  }
+`
+
 export {
   FormWrap,
   Label,
   Input,
   Select,
+  Button,
 }

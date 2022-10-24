@@ -69,3 +69,8 @@ footer ul li {
 #content {
   padding: 10%;
 }
+
+.icon {
+  vertical-align: middle;
+  display: inline-block;
+}
