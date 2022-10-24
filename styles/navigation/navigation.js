@@ -10,6 +10,7 @@ const StyledNav = styled.nav`
   left: 0;
   right: 0;
   display: flex;
+  box-shadow:0px -4px 20px rgba(63, 76, 95, 0.12);
 `
 
 const StyledLink = styled.a`

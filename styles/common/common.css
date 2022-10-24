@@ -11,7 +11,7 @@
 }
 html {
   -webkit-tap-highlight-color: transparent;
-  background-color: #F5F5F5;
+  background-color: #fff;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   color: #111719;
@@ -41,11 +41,15 @@ button {
 }
 
 header {
-  padding: 15px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header h1 {
   color: #fe742c;
+
 }
 
 footer {
@@ -67,10 +71,14 @@ footer ul li {
 }
 
 #content {
-  padding: 10%;
+  display: grid;
+    place-items: center;
+    min-height: calc(70vh);
 }
+
 
 .icon {
   vertical-align: middle;
   display: inline-block;
 }
+

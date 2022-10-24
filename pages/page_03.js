@@ -1,22 +1,21 @@
 import Transition from "~/components/Common/Transition";
 import Header from "~/components/Common/Header";
-import Footer from "~/components/Common/Footer";
-import LoginComponent from "~/components/Login";
+import JoinComponent from "~/components/Join";
 import Content from "~/components/Common/Content";
+import { TextBtn,InputBox } from "~/components/Common/Common";
 
-const Page_02 = () => {
+const Page_03 = () => {
   return (
     <Transition>
-      <Header icon="icon icon-chicken" />
+      <Header icon="icon icon-chicken" type="StartHeader" />
       <Content>
-        <LoginComponent
-          title="이름 입력"
-          subtitle="더 이상 뭐먹을지 고민하지 마세요!"
-        />
+        <JoinComponent title="이름 입력" subtitle="더 이상 뭐먹을지 고민하지 마세요!">
+        <InputBox type="text" placeholder="Name"/>
+        <TextBtn block children="NEXT"></TextBtn>
+        </JoinComponent>
       </Content>
-      <Footer />
     </Transition>
   );
 };
 
-export default Page_02;
+export default Page_03;

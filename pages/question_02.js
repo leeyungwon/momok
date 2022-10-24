@@ -1,18 +1,21 @@
 import Transition from "~/components/Common/Transition";
 import Header from "~/components/Common/Header";
-import Footer from "~/components/Common/Footer";
 import Content from "~/components/Common/Content";
-import Btn from "~/components/Common/Button";
+import { BtnBox,IconBox,Qtext,NextBtn } from "~/components/Common/Common";
 
 const Question_02 = () => {
   return (
     <Transition>
-      <Header icon="icon icon-chicken" />
+      <Header icon="broken-egg" type="StartHeader"><NextBtn>다음에 하기</NextBtn></Header>
       <Content>
-        <Btn>상관이에요</Btn>
-        <Btn>안되는데요?</Btn>
+        
+        <IconBox><i class="icon icon-chicken"></i></IconBox>
+        <Qtext>연속으로 같은 음식을<br></br> 먹어도 되나요?</Qtext>
+        <div>
+        <BtnBox>상관이에요</BtnBox>
+        <BtnBox off>안되는데연?</BtnBox>
+        </div>
       </Content>
-      <Footer />
     </Transition>
   );
 };
