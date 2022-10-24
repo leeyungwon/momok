@@ -1,12 +1,10 @@
 import Transition from '~/components/Common/Transition'
-import SimpleLayout from '~/layouts/simple'
+import RecommendedRestaurantComponent from '~/components/Restaurant/Recommended'
 
 const RecommendedRestaurant = () => (
   <Transition>
-    Recommended Restaurant
+    <RecommendedRestaurantComponent />
   </Transition>
 )
-
-RecommendedRestaurant.getLayout = page => <SimpleLayout>{page}</SimpleLayout>
 
 export default RecommendedRestaurant

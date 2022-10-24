@@ -14,9 +14,9 @@ import {
 import {
   PageWrap,
   SubmitBtn,
-} from '~/styles/restaurant/add'
+} from '~/styles/restaurant/common'
 
-import Header from './Header'
+import Header from '../Common/Header'
 import Form from './Form'
 import AddressPopup from './AddressPopup'
 
@@ -162,7 +162,7 @@ const AddRestaurantComponent = () => {
         }}
       />
 
-      <Header />
+      <Header title="추가하기" />
       {_.map(datas, data => (
         <Form
           key={data.name}

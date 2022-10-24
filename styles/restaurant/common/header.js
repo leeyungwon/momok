@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Icon from '~/components/Common/Icon'
 
 const HeaderWrap = styled.div`
+  height: 38px;
   margin-bottom: 35px;
   position: relative;
 `

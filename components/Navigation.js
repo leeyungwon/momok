@@ -22,21 +22,28 @@ const Navigation = () => {
   ] = useState([
     {
       path: '/home',
+      alias: [
+        '/home',
+        '/restaurant/recommended',
+      ],
       icon: 'home',
       isActive: false,
     },
     {
       path: '/favorite',
+      alias: ['/favorite'],
       icon: 'heart',
       isActive: false,
     },
     {
       path: '/user',
+      alias: ['/user'],
       icon: 'user',
       isActive: false,
     },
     {
       path: '/history',
+      alias: ['/history'],
       icon: 'history',
       isActive: false,
     },
@@ -44,7 +51,7 @@ const Navigation = () => {
 
   useEffect(() => {
     setNavigation(_.map(navigation, nav => {
-      nav.isActive = nav.path === router.pathname
+      nav.isActive = nav.alias.indexOf(router.pathname) > -1
 
       return nav
     }))

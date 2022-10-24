@@ -7,9 +7,11 @@ import {
   HeaderBtn,
   HeaderBtnIcon,
   Title,
-} from '~/styles/restaurant/add/header'
+} from '~/styles/restaurant/Common/header'
 
-const Header = () => {
+const Header = ({
+  title,
+}) => {
   const router = useRouter()
 
   const handleClickHeaderBtn = () => {
@@ -21,7 +23,7 @@ const Header = () => {
       <HeaderBtn onClick={handleClickHeaderBtn}>
         <HeaderBtnIcon icon="prev" />
       </HeaderBtn>
-      <Title>추가하기</Title>
+      {title && <Title>{title}</Title>}
     </HeaderWrap>
   )
 }
