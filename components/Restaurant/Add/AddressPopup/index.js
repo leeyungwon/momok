@@ -25,8 +25,8 @@ const AddressPopup = ({
   setPlace,
 }) => {
   const [
-    userPosition,
-    setUserPosition,
+    userLocation,
+    setUserLocation,
   ] = useState({})
   const [
     searchKeyword,
@@ -53,7 +53,7 @@ const AddressPopup = ({
   }
 
   const submitSearchKeyword = async () => {
-    const userLocatn = new Kakao.maps.LatLng(userPosition.lat, userPosition.lng)
+    const location = new Kakao.maps.LatLng(userLocation.lat, userLocation.lng)
     const places = new Kakao.maps.services.Places()
     const callback = (result, status) => {
       if (status !== Kakao.maps.services.Status.OK) {
@@ -68,7 +68,7 @@ const AddressPopup = ({
     }
 
     places.keywordSearch(searchKeyword, callback, {
-      location: userLocatn,
+      location,
     })
   }
 
@@ -76,12 +76,12 @@ const AddressPopup = ({
     // 사용자가 위치정보 사용을 허용했을 경우 사용자 위치 기준,
     // 거부했을 경우 회사 위치 기준으로 검색
     navigator.geolocation.getCurrentPosition(pos => {
-      setUserPosition({
+      setUserLocation({
         lat: pos.coords.latitude,
         lng: pos.coords.longitude,
       })
     }, err => {
-      setUserPosition({
+      setUserLocation({
         lat: 37.50508329231284,
         lng: 127.05549400986033,
       })
