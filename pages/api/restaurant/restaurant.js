@@ -10,8 +10,8 @@ const handler = async(req,res) => {
     const result = await restaurant.addRestaurant(payload,idx);
     res.status(result.status).json(result)
   }else if(req.method === "GET"){
-    const {restaurantIdx} = req.body;
-    const result = await restaurant.getRestaurant(idx,restaurantIdx);
+    const {restaurantIdx,lat,lng} = req.body;
+    const result = await restaurant.getRestaurant(idx,restaurantIdx,lat,lng);
     res.status(result.status).json(result)
   }else{
     res.status(400).json({ err: 'method eror' })  
