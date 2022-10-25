@@ -6,9 +6,8 @@ const handler = async(req,res) => {
   const {idx} = req.user;
   const restaurant = new Restaurant();
   if(req.method === "POST"){
-    const params = Object.values(req.body);
-    
-    const result = await restaurant.addRestaurant(params,idx);
+    const payload = req.body;
+    const result = await restaurant.addRestaurant(payload,idx);
     res.status(result.status).json(result)
   }else if(req.method === "GET"){
     const {restaurantIdx} = req.body;

@@ -11,7 +11,7 @@ export class Restaurant{
    * @param {*} idx 
    * @returns 
    */
-  async addRestaurant(params,idx){
+  async addRestaurant(payload,idx){
     let res = {
       status : 200,
       success : true,
@@ -19,16 +19,30 @@ export class Restaurant{
       errMsg : ""
     }
     try{
-      params.push(idx);
+      const auth = new Auth();
+      const params = [
+        payload.name,
+        payload.type,
+        payload.popularMenu,
+        payload.address,
+        payload.spicy,
+        payload.lat,
+        payload.lng,
+        payload.palceId,
+        idx
+      ]
       const sql = `INSERT INTO momok.restaurant
-      (name, type, popular_menu, address, spicy,user_idx)
-      VALUES(?,?, ?, ?, ?, ?);`
+      (name, type, popular_menu, address, spicy,lat,lng,palce_id,user_idx)
+      VALUES(?,?, ?, ?, ?, ?,?,?,?);`
       const result = await pool.query(sql,params);
       if(!result[0].insertId){
         res.errMsg = "식당 등록 실패";
         res.success = false;
       }else{
         res.insertId = result[0].insertId;
+        const userInfo = await (await auth.findUser(idx)).result
+        const newEgg = userInfo.egg + 1;
+        await this.updateUserEgg(idx,newEgg);
       }
     }catch(err){
       res.status = 400;
