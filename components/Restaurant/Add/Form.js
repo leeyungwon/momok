@@ -18,21 +18,14 @@ const Form = ({
   options,
   dataValue,
   onHandleChangeData,
-  handlePopup,
+  handleModal,
 }) => {
   const [
     value,
     setValue,
   ] = useState('')
 
-  const handleChangeInput = e => {
-    const value = e.target.value
-
-    setValue(value)
-    onHandleChangeData(name, value)
-  }
-
-  const handleChangeSelect = e => {
+  const handleChange = e => {
     const value = e.target.value
 
     setValue(value)
@@ -51,7 +44,7 @@ const Form = ({
         navigator.geolocation.getCurrentPosition(() => {})
       }
       if (result.state !== 'prompt') {
-        handlePopup(true)
+        handleModal(true)
       }
 
       result.addEventListener('change', () => {
@@ -59,7 +52,7 @@ const Form = ({
           alert('위치 정보 사용을 허용하면 현재 위치 기준으로 검색 가능합니다.\n위치 정보 사용이 거부되어 회사 위치 기준으로 검색합니다.')
         }
 
-        handlePopup(true)
+        handleModal(true)
       })
     })
   }
@@ -72,7 +65,7 @@ const Form = ({
           name={name}
           id={name}
           value={value}
-          onChange={handleChangeInput}
+          onChange={handleChange}
         />
       }
       {type === 'select' &&
@@ -80,7 +73,7 @@ const Form = ({
           name={name}
           id={name}
           value={value}
-          onChange={handleChangeSelect}
+          onChange={handleChange}
         >
           <option hidden></option>
           {_.map(options, option => (

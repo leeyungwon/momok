@@ -18,7 +18,7 @@ import {
 
 import Header from '../Common/Header'
 import Form from './Form'
-import AddressPopup from './AddressPopup'
+import AddressModal from './AddressModal'
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY
 
@@ -30,8 +30,8 @@ const AddRestaurantComponent = () => {
     setKakao,
   ] = useState(null)
   const [
-    isShowAddressPopup,
-    setIsShowAddressPopup,
+    isShowAddressModal,
+    setIsShowAddressModal,
   ] = useState(false)
   const [
     datas,
@@ -87,8 +87,8 @@ const AddRestaurantComponent = () => {
     handleChangeData('address', place)
   }
 
-  const handlePopup = status => {
-    setIsShowAddressPopup(status)
+  const handleModal = status => {
+    setIsShowAddressModal(status)
   }
 
   const handleChangeData = (name, value) => {
@@ -172,7 +172,7 @@ const AddRestaurantComponent = () => {
           options={data.options}
           dataValue={data.value}
           onHandleChangeData={handleChangeData}
-          handlePopup={handlePopup}
+          handleModal={handleModal}
         />
       ))}
       <SubmitBtn
@@ -181,9 +181,9 @@ const AddRestaurantComponent = () => {
         등록하고 달걀 받기
       </SubmitBtn>
 
-      {isShowAddressPopup && <AddressPopup
+      {isShowAddressModal && <AddressModal
         Kakao={Kakao}
-        handlePopup={handlePopup}
+        handleModal={handleModal}
         setPlace={handleSetPlace}
       />}
     </PageWrap>

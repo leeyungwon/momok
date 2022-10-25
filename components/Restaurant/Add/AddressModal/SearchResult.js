@@ -2,7 +2,7 @@ import {
   SearchResultItemBtn,
   ResultName,
   ResultAddress,
-} from '~/styles/restaurant/add/popup/search-result'
+} from '~/styles/restaurant/add/search-result'
 
 const SearchResult = ({
   place,

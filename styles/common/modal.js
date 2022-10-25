@@ -13,7 +13,7 @@ const fadeIn = keyframes`
   }
 `
 
-const PopupContainer = styled.div`
+const ModalContainer = styled.div`
   padding: 20px;
   backdrop-filter: blur(2px);
   background-color: rgba(0, 0, 0, .2);
@@ -31,12 +31,12 @@ const PopupContainer = styled.div`
   display: flex;
 `
 
-const PopupInner = styled.div`
+const ModalInner = styled.div`
   width: 100%;
   background-color: #FFF;
 `
 
-const PopupHeader = styled.div`
+const ModalHeader = styled.div`
   padding: 8px 20px;
   border-bottom: 1px solid #DDD;
   position: relative;
@@ -63,52 +63,15 @@ const CloseButton = styled.button`
   }
 `
 
-const PopupBody = styled.div`
+const ModalBody = styled.div`
   margin: 0;
 `
 
-const SearchWrap = styled.div`
-  border-bottom: 1px solid #DDD;
-  position: relative;
-`
-
-const SearchKeywordInput = styled.input`
-  width: 100%;
-  height: 45px;
-  padding: 12px 85px 12px 20px;
-  border: 0;
-  font-size: 15px;
-`
-
-const SearchBtn = styled.button`
-  width: 45px;
-  height: 45px;
-  transition: background-color .2s;
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  &:active {
-    background-color: rgba(0, 0, 0, .05);
-  }
-`
-
-const SearchIcon = styled(Icon)`
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
-  color: #888;
-`
-
 export {
-  PopupContainer,
-  PopupInner,
-  PopupHeader,
+  ModalContainer,
+  ModalInner,
+  ModalHeader,
   Title,
   CloseButton,
-  PopupBody,
-  SearchWrap,
-  SearchKeywordInput,
-  SearchBtn,
-  SearchIcon,
+  ModalBody,
 }
