@@ -3,9 +3,17 @@ import {
   useRouter,
 } from 'next/router'
 import {
+  useEffect,
   useState,
 } from 'react'
 import _ from 'lodash'
+
+import {
+  useDispatch,
+} from 'react-redux'
+import {
+  setLocation,
+} from '~/utils/store/location'
 
 import {
   axios,
@@ -24,6 +32,7 @@ const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY
 
 const AddRestaurantComponent = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [
     Kakao,
@@ -59,7 +68,7 @@ const AddRestaurantComponent = () => {
       order: 3,
       title: '대표메뉴',
       type: 'input',
-      name: 'popular_menu',
+      name: 'popularMenu',
       value: '',
     },
     {
@@ -130,9 +139,11 @@ const AddRestaurantComponent = () => {
     })
 
     data.address = address.road_address_name
-    data.lat = address.x
-    data.lng = address.y
-    data.palce_id = address.id
+    data.lng = address.x
+    data.lat = address.y
+    data.palceId = address.id
+
+    console.log(data)
 
     let response
     try {
@@ -151,6 +162,25 @@ const AddRestaurantComponent = () => {
 
     router.back()
   }
+
+  useEffect(() => {
+    // 사용자가 위치정보 사용을
+    navigator.geolocation.getCurrentPosition(pos => {
+      // 허용했을 경우 사용자 위치 기준 검색
+      const userLocation = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+      }
+      dispatch(setLocation(userLocation))
+    }, () => {
+      // 거부했을 경우 회사 위치 기준으로 검색
+      const companyLocation = {
+        lat: 37.50508329231284,
+        lng: 127.05549400986033,
+      }
+      dispatch(setLocation(companyLocation))
+    })
+  }, [])
 
   return (
     <PageWrap>

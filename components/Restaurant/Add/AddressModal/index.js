@@ -1,7 +1,10 @@
 import {
   useEffect,
-  useState
+  useState,
 } from 'react'
+import {
+  useSelector,
+} from 'react-redux'
 import _ from 'lodash'
 
 import {
@@ -19,10 +22,10 @@ const AddressModal = ({
   handleModal,
   setPlace,
 }) => {
-  const [
-    userLocation,
-    setUserLocation,
-  ] = useState({})
+  const {
+    value: userLocation,
+  } = useSelector(state => state.location)
+
   const [
     searchKeyword,
     setSearchKeyword,
@@ -62,25 +65,6 @@ const AddressModal = ({
       location,
     })
   }
-
-  useEffect(() => {
-    // 사용자가 위치정보 사용을
-    navigator.geolocation.getCurrentPosition(pos => {
-      // 허용했을 경우 사용자 위치 기준 검색
-      const userLocation = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-      }
-      setUserLocation(userLocation)
-    }, () => {
-      // 거부했을 경우 회사 위치 기준으로 검색
-      const companyLocation = {
-        lat: 37.50508329231284,
-        lng: 127.05549400986033,
-      }
-      setUserLocation(companyLocation)
-    })
-  }, [])
 
   return (
     <Modal

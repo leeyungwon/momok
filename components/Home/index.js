@@ -13,6 +13,14 @@ import {
 import {
   useRouter,
 } from 'next/router'
+
+import {
+  useDispatch,
+} from 'react-redux'
+import {
+  setLocation,
+} from '~/utils/store/location'
+
 import {
   axios,
 } from '~/utils'
@@ -21,6 +29,7 @@ const HomeComponent = ({
   eggs,
 }) => {
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [
     isBreakingEgg,
@@ -28,7 +37,6 @@ const HomeComponent = ({
   ] = useState(false)
   const [
     myEggs,
-    setMyEggs,
   ] = useState(eggs)
   const [
     content,
@@ -112,6 +120,23 @@ const HomeComponent = ({
         message: `등록하고 달걀 받기`,
       })
     }
+
+    // 사용자가 위치정보 사용을
+    navigator.geolocation.getCurrentPosition(pos => {
+      // 허용했을 경우 사용자 위치 기준 검색
+      const userLocation = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+      }
+      dispatch(setLocation(userLocation))
+    }, () => {
+      // 거부했을 경우 회사 위치 기준으로 검색
+      const companyLocation = {
+        lat: 37.50508329231284,
+        lng: 127.05549400986033,
+      }
+      dispatch(setLocation(companyLocation))
+    })
   }, [])
 
   useEffect(() => {
